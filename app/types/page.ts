@@ -23,8 +23,9 @@ export type Page<P extends {} = {}> = FunctionComponent<P>;
 export type ResultPage<
   Props extends {} = {},
   StaticProps extends {} = {},
+  ServerProps extends {} = {},
   Query extends ParsedUrlQuery = ParsedUrlQuery
-> = NextPage<Props> & {
+> = NextPage<Props & StaticProps & ServerProps> & {
   getStaticPaths?: (
     context: GetStaticPathsContext
   ) => MayBePromise<GetStaticPathsResult<Query>>;
@@ -35,7 +36,7 @@ export type ResultPage<
 
   getServerSideProps?: (
     context: GetServerSidePropsContext<Query>
-  ) => MayBePromise<GetServerSidePropsResult<Props & StaticProps>>;
+  ) => MayBePromise<GetServerSidePropsResult<ServerProps>>;
 
   layout?: Layout;
   layoutProps?: LayoutProps<Layout>;

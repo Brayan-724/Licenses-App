@@ -1,12 +1,24 @@
-import { getSession } from "next-auth/react";
-import { NextRequest, NextResponse, NextFetchEvent } from "next/server";
+import { decode } from "next-auth/jwt";
+import {
+  NextRequest,
+  NextResponse,
+  NextFetchEvent,
+  NextMiddleware,
+} from "next/server";
 
-export async function middleware(req: NextRequest) {
-  const session = await getSession();
+const middleware: NextMiddleware = async (
+  req: NextRequest,
+  ev: NextFetchEvent
+) => {
+  const session = await decode({
+    secret: process.env.NEXT_AUTH_SECRET as string,
+    token: req.cookies["next-auth.session-token"],
+  });
 
   if (session) {
-    return NextResponse.next();
   } else {
     return NextResponse.redirect("/login");
   }
-}
+};
+
+export default middleware;

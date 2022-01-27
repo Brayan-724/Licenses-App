@@ -1,7 +1,7 @@
 import { Layout, Page } from "@typing/page";
 import { page } from "@utils/page";
 
-export default page(
+const pageInfo = page(
   ({}) => {
     return <div className="">A</div>;
   },
@@ -9,3 +9,5 @@ export default page(
     layout: Layout.Default,
   }
 );
+
+export default pageInfo.page;

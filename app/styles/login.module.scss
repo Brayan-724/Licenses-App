@@ -1,0 +1,54 @@
+.background {
+  @apply h-full;
+  @apply flex justify-center items-center;
+  @apply bg-black;
+}
+
+.container {
+  @apply w-full max-w-xs;
+  @apply m-2 p-4;
+  @apply flex flex-col items-center gap-4;
+
+  @apply bg-white;
+
+  @apply rounded;
+}
+
+.title {
+  @apply text-center;
+  @apply text-3xl;
+  @apply font-bold;
+}
+
+.form {
+  @apply flex flex-col;
+}
+
+.githubBtn {
+  @apply m-2 px-3 py-2;
+  @apply text-center text-white;
+  @apply bg-black hover:bg-neutral-900;
+  @apply cursor-pointer;
+  @apply rounded;
+  @apply flex items-center gap-3;
+
+  svg {
+    @apply invert;
+  }
+}
+
+.signOut {
+  @apply m-2 px-3 py-2;
+  @apply text-center text-white;
+  @apply bg-red-500 hover:bg-red-700;
+  @apply cursor-pointer;
+  @apply rounded;
+}
+
+.backBtn {
+  @apply m-2 px-3 py-2;
+  @apply text-center text-white;
+  @apply bg-blue-500 hover:bg-blue-700;
+  @apply cursor-pointer;
+  @apply rounded;
+}
