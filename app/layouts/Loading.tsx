@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import tw from "twin.macro";
 
+const Background = styled.div`
+  ${tw`fixed flex justify-center items-center inset-0 z-[9999] bg-black`}
+`;
+
+const Container = styled.div`
+  ${tw`text-white text-5xl`}
+`;
+
 const LoadingText = styled.div/*css*/`
   & {
     animation: loading-text-animation 5s ease-in infinite;
@@ -45,10 +53,10 @@ const LoadingText = styled.div/*css*/`
 
 export function LoadingLayout() {
   return (
-    <div className="fixed flex justify-center items-center inset-0 z-[9999] bg-black">
-      <div className="text-white text-5xl">
+    <Background>
+      <Container>
         <LoadingText />
-      </div>
-    </div>
+      </Container>
+    </Background>
   );
 }
