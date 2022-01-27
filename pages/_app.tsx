@@ -32,8 +32,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {isRouteChanging && <LoadingLayout />}
-      {!isRouteChanging && (
+      {isRouteChanging || !Component ? (
+        <LoadingLayout />
+      ) : (
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>
