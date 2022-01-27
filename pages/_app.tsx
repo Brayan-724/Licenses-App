@@ -4,6 +4,7 @@ import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { LoadingLayout } from "@layouts/Loading";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
@@ -31,8 +32,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {isRouteChanging && <div className="loading-screen">Loading...</div>}
-      {!isRouteChanging && (
+      {isRouteChanging || !Component ? (
+        <LoadingLayout />
+      ) : (
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>
