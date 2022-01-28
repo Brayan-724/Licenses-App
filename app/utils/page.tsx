@@ -10,8 +10,9 @@ import type {
 } from "next";
 import { ResultPage, Page, Layout, LayoutProps } from "~/app/types/page";
 import { ParsedUrlQuery } from "querystring";
-import { MayBePromise } from "@typing/utils";
-import { MainLayout } from "~/app/layouts/Main";
+import { Awaitable } from "@typing/utils";
+import { MainLayout } from "@layouts/Main";
+import { AdminLayout } from "@layouts/Admin";
 
 export interface IPageOptions<
   Props = {},
@@ -22,21 +23,19 @@ export interface IPageOptions<
   layout?: Layout;
   layoutProps?: LayoutProps<Layout>;
 
-  getInitialProps?: (
-    context: NextPageContext
-  ) => MayBePromise<Props & StaticProps & ServerProps>;
+  getInitialProps?: (context: NextPageContext) => Awaitable<Props & StaticProps & ServerProps>;
 
   getStaticPaths?: (
     context: GetStaticPathsContext
-  ) => MayBePromise<GetStaticPathsResult<Query>>;
+  ) => Awaitable<GetStaticPathsResult<Query>>;
 
   getStaticProps?: (
     context: GetStaticPropsContext<Query>
-  ) => MayBePromise<GetStaticPropsResult<StaticProps>>;
+  ) => Awaitable<GetStaticPropsResult<StaticProps>>;
 
   getServerSideProps?: (
     context: GetServerSidePropsContext<Query>
-  ) => MayBePromise<GetServerSidePropsResult<ServerProps>>;
+  ) => Awaitable<GetServerSidePropsResult<ServerProps>>;
 }
 
 export function page<
@@ -55,6 +54,14 @@ export function page<
   ) => {
     if (layout === Layout.None) {
       return <Component {...props} />;
+    }
+
+    if(layout === Layout.Admin) {
+      return (
+        <AdminLayout {...layoutProps}>
+          <Component {...props} />
+        </AdminLayout>
+      )
     }
 
     return (

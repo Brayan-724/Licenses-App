@@ -10,14 +10,19 @@ import type {
 } from "next";
 import type { ParsedUrlQuery } from "querystring";
 
-import { MayBePromise } from "@typing/utils";
+import { Awaitable } from "@typing/utils";
 
 export enum Layout {
   None = "none",
   Default = "default",
+  Admin = "admin",
 }
 
-export type LayoutProps<L extends Layout> = L extends Layout.None ? {} : {};
+export type LayoutProps<L extends Layout> = L extends Layout.None
+  ? {}
+  : L extends Layout.Admin
+  ? {}
+  : {};
 
 export type Page<P extends {} = {}> = FunctionComponent<P>;
 export type ResultPage<
@@ -28,15 +33,15 @@ export type ResultPage<
 > = NextPage<Props & StaticProps & ServerProps> & {
   getStaticPaths?: (
     context: GetStaticPathsContext
-  ) => MayBePromise<GetStaticPathsResult<Query>>;
+  ) => Awaitable<GetStaticPathsResult<Query>>;
 
   getStaticProps?: (
     context: GetStaticPropsContext<Query>
-  ) => MayBePromise<GetStaticPropsResult<StaticProps>>;
+  ) => Awaitable<GetStaticPropsResult<StaticProps>>;
 
   getServerSideProps?: (
     context: GetServerSidePropsContext<Query>
-  ) => MayBePromise<GetServerSidePropsResult<ServerProps>>;
+  ) => Awaitable<GetServerSidePropsResult<ServerProps>>;
 
   layout?: Layout;
   layoutProps?: LayoutProps<Layout>;
