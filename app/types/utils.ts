@@ -1,3 +1,6 @@
+/**
+ * @description Returns a possible promise
+ */
 export type Awaitable<T> = T | Promise<T>;
 
 /**
