@@ -39,8 +39,8 @@ export type PropsWithComponent<
   T extends React.ComponentType<any>,
   OP extends boolean = false
 > = OP extends true
-  ? { children?: ArrayOr<React.ReactElement<any, T>> }
-  : { children: ArrayOr<React.ReactElement<any, T>> };
+  ? { children?: ArrayOr<React.ReactElement<PropsOf<T>, T>> }
+  : { children: ArrayOr<React.ReactElement<PropsOf<T>, T>> };
 
 /**
  * @description Returns a function to validate if target is of same type as `component`.
